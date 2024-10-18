@@ -164,7 +164,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-e469ae14-d620",
-                  "S3Key": "serverless/despacho-granel-app/dev/1729229165612-2024-10-18T05:26:05.612Z/despacho-granel-app.zip"
+                  "S3Key": "serverless/despacho-granel-app/dev/1729256133834-2024-10-18T12:55:33.834Z/despacho-granel-app.zip"
                 },
                 "Handler": "handler.signup",
                 "Runtime": "nodejs18.x",
@@ -192,7 +192,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-e469ae14-d620",
-                  "S3Key": "serverless/despacho-granel-app/dev/1729229165612-2024-10-18T05:26:05.612Z/despacho-granel-app.zip"
+                  "S3Key": "serverless/despacho-granel-app/dev/1729256133834-2024-10-18T12:55:33.834Z/despacho-granel-app.zip"
                 },
                 "Handler": "handler.login",
                 "Runtime": "nodejs18.x",
@@ -220,7 +220,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-e469ae14-d620",
-                  "S3Key": "serverless/despacho-granel-app/dev/1729229165612-2024-10-18T05:26:05.612Z/despacho-granel-app.zip"
+                  "S3Key": "serverless/despacho-granel-app/dev/1729256133834-2024-10-18T12:55:33.834Z/despacho-granel-app.zip"
                 },
                 "Handler": "handler.home",
                 "Runtime": "nodejs18.x",
@@ -243,34 +243,34 @@
                 "HomeLogGroup"
               ]
             },
-            "SignupLambdaVersion4h2B20VGSQ5SyQpcrE4dYyOAQlNenC09A0KHsf0aBI": {
+            "SignupLambdaVersionE0w2MeBRNpTtnDpku0M5rSxY1AYPy0Ni6c4LkHuHBU": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "SignupLambdaFunction"
                 },
-                "CodeSha256": "CzB7avb4uHLHvkUaZvoTGEsg09Q1dduGYQ+MckKgAJk="
+                "CodeSha256": "tTBMx4Rz/QoHV2mExrqojzF6ej8KQ0EFWW36lyWpO80="
               }
             },
-            "LoginLambdaVersioncG6o7tjKyDoTa5RKNFKJ6mzqofm2M0RpNcwfRvd9aQ": {
+            "LoginLambdaVersionmhGlA1QNW5nQrmAyf5oqlMiyHZCq1qZVULgipHAGA": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "LoginLambdaFunction"
                 },
-                "CodeSha256": "CzB7avb4uHLHvkUaZvoTGEsg09Q1dduGYQ+MckKgAJk="
+                "CodeSha256": "tTBMx4Rz/QoHV2mExrqojzF6ej8KQ0EFWW36lyWpO80="
               }
             },
-            "HomeLambdaVersionK9aJUjyacTRpksX9WQMn7iou6H6ZXhWw99Gn5tinls": {
+            "HomeLambdaVersionGzIbtJEDvyqiNQvwPkjCjEkMR4u6RpIaIvDLWav8rQ": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "HomeLambdaFunction"
                 },
-                "CodeSha256": "CzB7avb4uHLHvkUaZvoTGEsg09Q1dduGYQ+MckKgAJk="
+                "CodeSha256": "tTBMx4Rz/QoHV2mExrqojzF6ej8KQ0EFWW36lyWpO80="
               }
             },
             "ApiGatewayRestApi": {
@@ -325,6 +325,147 @@
                   ]
                 },
                 "PathPart": "home",
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodSignupOptions": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "AuthorizationType": "NONE",
+                "HttpMethod": "OPTIONS",
+                "MethodResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": true,
+                      "method.response.header.Access-Control-Allow-Headers": true,
+                      "method.response.header.Access-Control-Allow-Methods": true,
+                      "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
+                    },
+                    "ResponseModels": {}
+                  }
+                ],
+                "RequestParameters": {},
+                "Integration": {
+                  "Type": "MOCK",
+                  "RequestTemplates": {
+                    "application/json": "{statusCode:200}"
+                  },
+                  "ContentHandling": "CONVERT_TO_TEXT",
+                  "IntegrationResponses": [
+                    {
+                      "StatusCode": "200",
+                      "ResponseParameters": {
+                        "method.response.header.Access-Control-Allow-Origin": "'https://dz17oj4ivartw.cloudfront.net'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                        "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
+                      },
+                      "ResponseTemplates": {
+                        "application/json": ""
+                      }
+                    }
+                  ]
+                },
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceSignup"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodLoginOptions": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "AuthorizationType": "NONE",
+                "HttpMethod": "OPTIONS",
+                "MethodResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": true,
+                      "method.response.header.Access-Control-Allow-Headers": true,
+                      "method.response.header.Access-Control-Allow-Methods": true,
+                      "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
+                    },
+                    "ResponseModels": {}
+                  }
+                ],
+                "RequestParameters": {},
+                "Integration": {
+                  "Type": "MOCK",
+                  "RequestTemplates": {
+                    "application/json": "{statusCode:200}"
+                  },
+                  "ContentHandling": "CONVERT_TO_TEXT",
+                  "IntegrationResponses": [
+                    {
+                      "StatusCode": "200",
+                      "ResponseParameters": {
+                        "method.response.header.Access-Control-Allow-Origin": "'https://dz17oj4ivartw.cloudfront.net'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                        "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
+                      },
+                      "ResponseTemplates": {
+                        "application/json": ""
+                      }
+                    }
+                  ]
+                },
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceLogin"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodHomeOptions": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "AuthorizationType": "NONE",
+                "HttpMethod": "OPTIONS",
+                "MethodResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": true,
+                      "method.response.header.Access-Control-Allow-Headers": true,
+                      "method.response.header.Access-Control-Allow-Methods": true,
+                      "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
+                    },
+                    "ResponseModels": {}
+                  }
+                ],
+                "RequestParameters": {},
+                "Integration": {
+                  "Type": "MOCK",
+                  "RequestTemplates": {
+                    "application/json": "{statusCode:200}"
+                  },
+                  "ContentHandling": "CONVERT_TO_TEXT",
+                  "IntegrationResponses": [
+                    {
+                      "StatusCode": "200",
+                      "ResponseParameters": {
+                        "method.response.header.Access-Control-Allow-Origin": "'https://dz17oj4ivartw.cloudfront.net'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
+                        "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
+                      },
+                      "ResponseTemplates": {
+                        "application/json": ""
+                      }
+                    }
+                  ]
+                },
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceHome"
+                },
                 "RestApiId": {
                   "Ref": "ApiGatewayRestApi"
                 }
@@ -468,7 +609,7 @@
                 "HomeLambdaPermissionApiGateway"
               ]
             },
-            "ApiGatewayDeployment1729229160117": {
+            "ApiGatewayDeployment1729256125586": {
               "Type": "AWS::ApiGateway::Deployment",
               "Properties": {
                 "RestApiId": {
@@ -477,6 +618,9 @@
                 "StageName": "dev"
               },
               "DependsOn": [
+                "ApiGatewayMethodSignupOptions",
+                "ApiGatewayMethodLoginOptions",
+                "ApiGatewayMethodHomeOptions",
                 "ApiGatewayMethodSignupPost",
                 "ApiGatewayMethodLoginPost",
                 "ApiGatewayMethodHomeGet"
@@ -611,6 +755,21 @@
                 ],
                 "BillingMode": "PAY_PER_REQUEST"
               }
+            },
+            "GatewayResponse": {
+              "Type": "AWS::ApiGateway::GatewayResponse",
+              "Properties": {
+                "ResponseParameters": {
+                  "gatewayresponse.header.Access-Control-Allow-Origin": "'https://dz17oj4ivartw.cloudfront.net'",
+                  "gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type, Authorization'",
+                  "gatewayresponse.header.Access-Control-Allow-Methods": "'GET, POST, OPTIONS'",
+                  "gatewayresponse.header.Access-Control-Allow-Credentials": "<REDACTED>"
+                },
+                "ResponseType": "DEFAULT_4XX",
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
             }
           },
           "Outputs": {
@@ -623,7 +782,7 @@
             "SignupLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "SignupLambdaVersion4h2B20VGSQ5SyQpcrE4dYyOAQlNenC09A0KHsf0aBI"
+                "Ref": "SignupLambdaVersionE0w2MeBRNpTtnDpku0M5rSxY1AYPy0Ni6c4LkHuHBU"
               },
               "Export": {
                 "Name": "sls-despacho-granel-app-dev-SignupLambdaFunctionQualifiedArn"
@@ -632,7 +791,7 @@
             "LoginLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "LoginLambdaVersioncG6o7tjKyDoTa5RKNFKJ6mzqofm2M0RpNcwfRvd9aQ"
+                "Ref": "LoginLambdaVersionmhGlA1QNW5nQrmAyf5oqlMiyHZCq1qZVULgipHAGA"
               },
               "Export": {
                 "Name": "sls-despacho-granel-app-dev-LoginLambdaFunctionQualifiedArn"
@@ -641,7 +800,7 @@
             "HomeLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "HomeLambdaVersionK9aJUjyacTRpksX9WQMn7iou6H6ZXhWw99Gn5tinls"
+                "Ref": "HomeLambdaVersionGzIbtJEDvyqiNQvwPkjCjEkMR4u6RpIaIvDLWav8rQ"
               },
               "Export": {
                 "Name": "sls-despacho-granel-app-dev-HomeLambdaFunctionQualifiedArn"
@@ -685,6 +844,22 @@
               "http": {
                 "path": "signup",
                 "method": "post",
+                "cors": {
+                  "origin": "https://dz17oj4ivartw.cloudfront.net",
+                  "methods": [
+                    "OPTIONS",
+                    "POST"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "Authorization",
+                    "X-Amz-Date",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
                 "integration": "AWS_PROXY"
               }
             }
@@ -698,7 +873,7 @@
           "timeout": 6,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "SignupLambdaVersion4h2B20VGSQ5SyQpcrE4dYyOAQlNenC09A0KHsf0aBI"
+          "versionLogicalId": "SignupLambdaVersionE0w2MeBRNpTtnDpku0M5rSxY1AYPy0Ni6c4LkHuHBU"
         },
         "login": {
           "handler": "handler.login",
@@ -707,6 +882,22 @@
               "http": {
                 "path": "login",
                 "method": "post",
+                "cors": {
+                  "origin": "https://dz17oj4ivartw.cloudfront.net",
+                  "methods": [
+                    "OPTIONS",
+                    "POST"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "Authorization",
+                    "X-Amz-Date",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
                 "integration": "AWS_PROXY"
               }
             }
@@ -720,7 +911,7 @@
           "timeout": 6,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "LoginLambdaVersioncG6o7tjKyDoTa5RKNFKJ6mzqofm2M0RpNcwfRvd9aQ"
+          "versionLogicalId": "LoginLambdaVersionmhGlA1QNW5nQrmAyf5oqlMiyHZCq1qZVULgipHAGA"
         },
         "home": {
           "handler": "handler.home",
@@ -729,6 +920,22 @@
               "http": {
                 "path": "home",
                 "method": "get",
+                "cors": {
+                  "origin": "https://dz17oj4ivartw.cloudfront.net",
+                  "methods": [
+                    "OPTIONS",
+                    "GET"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "Authorization",
+                    "X-Amz-Date",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
                 "integration": "AWS_PROXY"
               }
             }
@@ -742,7 +949,7 @@
           "timeout": 6,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "HomeLambdaVersionK9aJUjyacTRpksX9WQMn7iou6H6ZXhWw99Gn5tinls"
+          "versionLogicalId": "HomeLambdaVersionGzIbtJEDvyqiNQvwPkjCjEkMR4u6RpIaIvDLWav8rQ"
         }
       },
       "resources": {
@@ -765,6 +972,21 @@
               ],
               "BillingMode": "PAY_PER_REQUEST"
             }
+          },
+          "GatewayResponse": {
+            "Type": "AWS::ApiGateway::GatewayResponse",
+            "Properties": {
+              "ResponseParameters": {
+                "gatewayresponse.header.Access-Control-Allow-Origin": "'https://dz17oj4ivartw.cloudfront.net'",
+                "gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type, Authorization'",
+                "gatewayresponse.header.Access-Control-Allow-Methods": "'GET, POST, OPTIONS'",
+                "gatewayresponse.header.Access-Control-Allow-Credentials": "<REDACTED>"
+              },
+              "ResponseType": "DEFAULT_4XX",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
           }
         },
         "Outputs": {}
@@ -773,13 +995,11 @@
         "serverless-offline"
       ]
     },
-    "serviceRawFile": "service: despacho-granel-app\n\nprovider:\n  name: aws\n  runtime: nodejs18.x\n  region: us-east-1\n  iamRoleStatements:\n    - Effect: Allow\n      Action:\n        - dynamodb:PutItem\n        - dynamodb:GetItem\n        - dynamodb:UpdateItem\n        - dynamodb:DeleteItem\n        - dynamodb:Scan\n        - dynamodb:Query\n      Resource: \n        # Reemplaza con el ARN correcto de tu tabla de usuarios\n        - arn:aws:dynamodb:us-east-1:207567761860:table/DespachoGranelTable\n    - Effect: \"Allow\"\n      Action:\n        - execute-api:Invoke\n      Resource: \n        - \"arn:aws:execute-api:us-east-1:*:*\"\n\nfunctions:\n  signup:\n    handler: handler.signup\n    events:\n      - http:\n          path: signup\n          method: post\n          \n  login:\n    handler: handler.login\n    events:\n      - http:\n          path: login\n          method: post\n  \n  home:\n    handler: handler.home\n    events:\n      - http:\n          path: home\n          method: get\n\nresources:\n  Resources:\n    UsersTable:\n      Type: AWS::DynamoDB::Table\n      Properties:\n        TableName: DespachoGranelTable\n        AttributeDefinitions:\n          - AttributeName: userId\n            AttributeType: S\n        KeySchema:\n          - AttributeName: userId\n            KeyType: HASH\n        BillingMode: PAY_PER_REQUEST\n\nplugins:\n  - serverless-offline\n",
+    "serviceRawFile": "service: despacho-granel-app\n\nprovider:\n  name: aws\n  runtime: nodejs18.x\n  region: us-east-1\n  iamRoleStatements:\n    - Effect: Allow\n      Action:\n        - dynamodb:PutItem\n        - dynamodb:GetItem\n        - dynamodb:UpdateItem\n        - dynamodb:DeleteItem\n        - dynamodb:Scan\n        - dynamodb:Query\n      Resource: \n        # Reemplaza con el ARN correcto de tu tabla de usuarios\n        - arn:aws:dynamodb:us-east-1:207567761860:table/DespachoGranelTable\n    - Effect: \"Allow\"\n      Action:\n        - execute-api:Invoke\n      Resource: \n        - \"arn:aws:execute-api:us-east-1:*:*\"\n\nfunctions:\n  signup:\n    handler: handler.signup\n    events:\n      - http:\n          path: signup\n          method: post\n          cors:\n            origin:\n              - 'https://dz17oj4ivartw.cloudfront.net'\n            headers:\n              - Content-Type\n              - Authorization\n              - X-Amz-Date\n              - X-Api-Key\n              - X-Amz-Security-Token\n              - X-Amz-User-Agent\n            allowCredentials: true\n\n  login:\n    handler: handler.login\n    events:\n      - http:\n          path: login\n          method: post\n          cors:\n            origin:\n              - 'https://dz17oj4ivartw.cloudfront.net'\n            headers:\n              - Content-Type\n              - Authorization\n              - X-Amz-Date\n              - X-Api-Key\n              - X-Amz-Security-Token\n              - X-Amz-User-Agent\n            allowCredentials: true\n\n  home:\n    handler: handler.home\n    events:\n      - http:\n          path: home\n          method: get\n          cors:\n            origin:\n              - 'https://dz17oj4ivartw.cloudfront.net'\n            headers:\n              - Content-Type\n              - Authorization\n              - X-Amz-Date\n              - X-Api-Key\n              - X-Amz-Security-Token\n              - X-Amz-User-Agent\n            allowCredentials: true\n\nresources:\n  Resources:\n    UsersTable:\n      Type: AWS::DynamoDB::Table\n      Properties:\n        TableName: DespachoGranelTable\n        AttributeDefinitions:\n          - AttributeName: userId\n            AttributeType: S\n        KeySchema:\n          - AttributeName: userId\n            KeyType: HASH\n        BillingMode: PAY_PER_REQUEST\n\n    GatewayResponse:\n      Type: \"AWS::ApiGateway::GatewayResponse\"\n      Properties:\n        ResponseParameters:\n          \"gatewayresponse.header.Access-Control-Allow-Origin\": \"'https://dz17oj4ivartw.cloudfront.net'\"\n          \"gatewayresponse.header.Access-Control-Allow-Headers\": \"'Content-Type, Authorization'\"\n          \"gatewayresponse.header.Access-Control-Allow-Methods\": \"'GET, POST, OPTIONS'\"\n          \"gatewayresponse.header.Access-Control-Allow-Credentials\": \"'true'\"\n        ResponseType: DEFAULT_4XX\n        RestApiId:\n          Ref: \"ApiGatewayRestApi\"\n\nplugins:\n  - serverless-offline\n",
     "command": [
       "deploy"
     ],
-    "options": {
-      "force": true
-    },
+    "options": {},
     "error": null,
     "params": {},
     "machineId": "a0e68928fefc0c89abd098a134c3988e",
@@ -808,33 +1028,33 @@
     "versionSf": "4.4.6",
     "serviceProviderAwsCfStackName": "despacho-granel-app-dev",
     "integrations": {},
-    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:207567761860:stack/despacho-granel-app-dev/5a45c1f0-8771-11ef-9b83-122383d5a88f",
-    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:207567761860:stack/despacho-granel-app-dev/5a45c1f0-8771-11ef-9b83-122383d5a88f",
-    "serviceProviderAwsCfStackCreated": "2024-10-11T01:37:18.863Z",
-    "serviceProviderAwsCfStackUpdated": "2024-10-18T05:27:03.141Z",
-    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:207567761860:stack/despacho-granel-app-dev/5c34d0c0-8d50-11ef-84fd-1211c73561e3",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:207567761860:stack/despacho-granel-app-dev/5c34d0c0-8d50-11ef-84fd-1211c73561e3",
+    "serviceProviderAwsCfStackCreated": "2024-10-18T12:56:15.712Z",
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": "CREATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
         "OutputKey": "HomeLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:207567761860:function:despacho-granel-app-dev-home:4",
+        "OutputValue": "arn:aws:lambda:us-east-1:207567761860:function:despacho-granel-app-dev-home:6",
         "Description": "Current Lambda function version",
         "ExportName": "sls-despacho-granel-app-dev-HomeLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "SignupLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:207567761860:function:despacho-granel-app-dev-signup:4",
+        "OutputValue": "arn:aws:lambda:us-east-1:207567761860:function:despacho-granel-app-dev-signup:6",
         "Description": "Current Lambda function version",
         "ExportName": "sls-despacho-granel-app-dev-SignupLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "LoginLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:207567761860:function:despacho-granel-app-dev-login:4",
+        "OutputValue": "arn:aws:lambda:us-east-1:207567761860:function:despacho-granel-app-dev-login:6",
         "Description": "Current Lambda function version",
         "ExportName": "sls-despacho-granel-app-dev-LoginLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "ServiceEndpoint",
-        "OutputValue": "https://temwlza8h1.execute-api.us-east-1.amazonaws.com/dev",
+        "OutputValue": "https://h7scr7rpeg.execute-api.us-east-1.amazonaws.com/dev",
         "Description": "URL of the service endpoint",
         "ExportName": "sls-despacho-granel-app-dev-ServiceEndpoint"
       },

@@ -96,6 +96,12 @@ export const login: APIGatewayProxyHandler = async (event) => {
   if (!username || !password) {
     return {
       statusCode: 400,
+      headers: {
+        "Access-Control-Allow-Origin": "https://dz17oj4ivartw.cloudfront.net",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Credentials": true,
+      },
       body: JSON.stringify({ message: 'Username and password are required' }),
     };
   }
@@ -114,7 +120,7 @@ export const login: APIGatewayProxyHandler = async (event) => {
       return {
         statusCode: 401,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "https://dz17oj4ivartw.cloudfront.net",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
           "Access-Control-Allow-Credentials": true,
@@ -141,7 +147,7 @@ export const login: APIGatewayProxyHandler = async (event) => {
       return {
         statusCode: 500,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "https://dz17oj4ivartw.cloudfront.net",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
           "Access-Control-Allow-Credentials": true,
@@ -153,7 +159,7 @@ export const login: APIGatewayProxyHandler = async (event) => {
     return {
       statusCode: 500,
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "https://dz17oj4ivartw.cloudfront.net",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Allow-Credentials": true,
