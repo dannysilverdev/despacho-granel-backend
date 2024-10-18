@@ -11,56 +11,52 @@ provider:
         - dynamodb:GetItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource:
-        - arn:aws:dynamodb:us-east-1:*:table/DespachoGranel
+        - dynamodb:Scan
+        - dynamodb:Query
+      Resource: 
+        # Reemplaza con el ARN correcto de tu tabla de usuarios
+        - arn:aws:dynamodb:us-east-1:207567761860:table/DespachoGranelTable
+    - Effect: "Allow"
+      Action:
+        - execute-api:Invoke
+      Resource: 
+        - "arn:aws:execute-api:us-east-1:*:*"
 
 functions:
-  createDespacho:
-    handler: handler.createDespacho
+  signup:
+    handler: handler.signup
     events:
       - http:
-          path: despacho
+          path: signup
           method: post
-          cors: true
-
-  getDespacho:
-    handler: handler.getDespacho
+          
+  login:
+    handler: handler.login
     events:
       - http:
-          path: despacho/{numeroGuia}
+          path: login
+          method: post
+  
+  home:
+    handler: handler.home
+    events:
+      - http:
+          path: home
           method: get
-          cors: true
-
-  updateDespacho:
-    handler: handler.updateDespacho
-    events:
-      - http:
-          path: despacho/{numeroGuia}
-          method: put
-          cors: true
-
-  deleteDespacho:
-    handler: handler.deleteDespacho
-    events:
-      - http:
-          path: despacho/{numeroGuia}
-          method: delete
-          cors: true
 
 resources:
   Resources:
-    DespachoGranel:
+    UsersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: DespachoGranel
+        TableName: DespachoGranelTable
         AttributeDefinitions:
-          - AttributeName: numeroGuia
+          - AttributeName: userId
             AttributeType: S
         KeySchema:
-          - AttributeName: numeroGuia
+          - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
 
-# Agregar el plugin para desarrollo local
 plugins:
   - serverless-offline
