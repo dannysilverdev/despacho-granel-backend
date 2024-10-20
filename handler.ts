@@ -3,9 +3,25 @@ import AWS from 'aws-sdk';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
+// Configurar DynamoDB para conectar a la versión local si estamos trabajando en modo offline
+let options: AWS.DynamoDB.DocumentClient.DocumentClientOptions & AWS.DynamoDB.Types.ClientConfiguration = {};
+if (process.env.IS_OFFLINE === 'true') {
+  options = {
+    region: 'localhost',
+    endpoint: 'http://localhost:8000', // Conectar a DynamoDB local
+    accessKeyId: 'dummyAccessKeyId', // Credenciales ficticias
+    secretAccessKey: 'dummySecretAccessKey', // Credenciales ficticias
+  };
+}
+
+const dynamoDb = new AWS.DynamoDB.DocumentClient(options);
 const USERS_TABLE = process.env.USERS_TABLE || 'DespachoGranelTable';
-const JWT_SECRET = 'b3610d50-c165-4b06-ab8b-b2eacf8faa56';
+const JWT_SECRET = process.env.JWT_SECRET || 'b3610d50-c165-4b06-ab8b-b2eacf8faa56';
+
+// Variable para la URL de origen permitida
+type Environments = 'local' | 'remote';
+const CURRENT_ENV: Environments = process.env.IS_OFFLINE === 'true' ? 'local' : 'remote';
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || (CURRENT_ENV === 'local' ? 'http://127.0.0.1:5173' : 'https://dz17oj4ivartw.cloudfront.net');
 
 export const home: APIGatewayProxyHandler = async (event) => {
   const authHeader = event.headers.Authorization || event.headers.authorization;
@@ -13,6 +29,10 @@ export const home: APIGatewayProxyHandler = async (event) => {
   if (!authHeader) {
     return {
       statusCode: 401,
+      headers: {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN, // Origen permitido según el entorno
+        'Access-Control-Allow-Headers': 'Authorization', // Permite el header de Authorization
+      },
       body: JSON.stringify({ message: 'Authorization header missing' }),
     };
   }
@@ -24,16 +44,63 @@ export const home: APIGatewayProxyHandler = async (event) => {
     jwt.verify(token, JWT_SECRET);
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN, // Origen permitido según el entorno
+        'Access-Control-Allow-Headers': 'Authorization', // Permite el header de Authorization
+      },
       body: JSON.stringify({ message: 'Bienvenido al sistema de Despacho Granel!' }),
     };
   } catch (error) {
     return {
       statusCode: 403,
+      headers: {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN, // Origen permitido según el entorno
+        'Access-Control-Allow-Headers': 'Authorization', // Permite el header de Authorization
+      },
       body: JSON.stringify({ message: 'Invalid or expired token', error: error instanceof Error ? error.message : 'Unknown error' }),
     };
   }
 };
 
+// Modulo de Despacho
+export const dispatch: APIGatewayProxyHandler = async (event) => {
+  const authHeader = event.headers.Authorization || event.headers.authorization;
+
+  if (!authHeader) {
+    return {
+      statusCode: 401,
+      headers: {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN, // Origen permitido según el entorno
+        'Access-Control-Allow-Headers': 'Authorization', // Permite el header de Authorization
+      },
+      body: JSON.stringify({ message: 'Authorization header missing' }),
+    };
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verificar el token JWT
+    jwt.verify(token, JWT_SECRET);
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN, // Origen permitido según el entorno
+        'Access-Control-Allow-Headers': 'Authorization', // Permite el header de Authorization
+      },
+      body: JSON.stringify({ message: 'Formulario de despacho' }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 403,
+      headers: {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN, // Origen permitido según el entorno
+        'Access-Control-Allow-Headers': 'Authorization', // Permite el header de Authorization
+      },
+      body: JSON.stringify({ message: 'Invalid or expired token', error: error instanceof Error ? error.message : 'Unknown error' }),
+    };
+  }
+};
 
 // Función para registrar un nuevo usuario (signup)
 export const signup: APIGatewayProxyHandler = async (event) => {
@@ -67,7 +134,7 @@ export const signup: APIGatewayProxyHandler = async (event) => {
       return {
         statusCode: 500,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
           "Access-Control-Allow-Credentials": true,
@@ -79,7 +146,7 @@ export const signup: APIGatewayProxyHandler = async (event) => {
     return {
       statusCode: 500,
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Allow-Credentials": true,
@@ -97,7 +164,7 @@ export const login: APIGatewayProxyHandler = async (event) => {
     return {
       statusCode: 400,
       headers: {
-        "Access-Control-Allow-Origin": "https://dz17oj4ivartw.cloudfront.net",
+        "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Allow-Credentials": true,
@@ -120,7 +187,7 @@ export const login: APIGatewayProxyHandler = async (event) => {
       return {
         statusCode: 401,
         headers: {
-          "Access-Control-Allow-Origin": "https://dz17oj4ivartw.cloudfront.net",
+          "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
           "Access-Control-Allow-Credentials": true,
@@ -135,7 +202,7 @@ export const login: APIGatewayProxyHandler = async (event) => {
     return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin": "*",  // Permitir todos los orígenes
+        "Access-Control-Allow-Origin": ALLOWED_ORIGIN,  // Origen permitido según el entorno
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Allow-Credentials": true,
@@ -147,7 +214,7 @@ export const login: APIGatewayProxyHandler = async (event) => {
       return {
         statusCode: 500,
         headers: {
-          "Access-Control-Allow-Origin": "https://dz17oj4ivartw.cloudfront.net",
+          "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
           "Access-Control-Allow-Credentials": true,
@@ -159,7 +226,7 @@ export const login: APIGatewayProxyHandler = async (event) => {
     return {
       statusCode: 500,
       headers: {
-        "Access-Control-Allow-Origin": "https://dz17oj4ivartw.cloudfront.net",
+        "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Allow-Credentials": true,

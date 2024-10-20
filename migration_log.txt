@@ -1,0 +1,26 @@
+
+UnrecognizedClientException: The Access Key ID or security token is invalid.: DynamoDB - Error - 
+
+✖ UnrecognizedClientException: The Access Key ID or security token is invalid.
+    at Request.extractError (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/protocol/json.js:80:27)
+    at Request.callListeners (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/sequential_executor.js:106:20)
+    at Request.emit (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/sequential_executor.js:78:10)
+    at Request.emit (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/request.js:686:14)
+    at Request.transition (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/request.js:22:10)
+    at AcceptorStateMachine.runTo (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/state_machine.js:14:12)
+    at /home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/state_machine.js:26:10
+    at Request.<anonymous> (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/request.js:38:9)
+    at Request.<anonymous> (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/request.js:688:12)
+    at Request.callListeners (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/sequential_executor.js:116:18)
+    at Request.emit (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/sequential_executor.js:78:10)
+    at Request.emit (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/request.js:686:14)
+    at Request.transition (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/request.js:22:10)
+    at AcceptorStateMachine.runTo (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/state_machine.js:14:12)
+    at /home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/state_machine.js:26:10
+    at Request.<anonymous> (/home/dannysilver/despacho-granel/backend/node_modules/aws-sdk/lib/request.js:38:9)
+
+For help, try the following:
+  • Run the command again with the "--debug" option
+  • Run "serverless support"
+  • Review the docs: https://www.serverless.com/framework/docs/
+
